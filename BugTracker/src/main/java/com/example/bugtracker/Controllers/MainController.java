@@ -7,7 +7,7 @@ import lombok.Getter;
 
 public class MainController {
     @Getter
-    private Service service;
+    protected Service service;
 
     @FXML
     public Label loggedUserLabel;

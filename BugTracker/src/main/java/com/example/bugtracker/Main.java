@@ -1,8 +1,12 @@
 package com.example.bugtracker;
 
 import com.example.bugtracker.Controllers.LoginController;
-import com.example.bugtracker.Repository.CredentialsDbRepository;
-import com.example.bugtracker.Repository.JdbcUtils;
+import com.example.bugtracker.Repository.Bugs.BugsDbRepository;
+import com.example.bugtracker.Repository.Bugs.BugsRepository;
+import com.example.bugtracker.Repository.Complains.ComplainsDbRepository;
+import com.example.bugtracker.Repository.Complains.ComplainsRepository;
+import com.example.bugtracker.Repository.Credentials.CredentialsDbRepository;
+import com.example.bugtracker.Repository.Credentials.CredentialsRepository;
 import com.example.bugtracker.Service.Service;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +30,10 @@ public class Main extends Application {
             System.exit(1);
         }
 
-        Service service = new Service(new CredentialsDbRepository(properties));
+        CredentialsRepository credentialsRepository = new CredentialsDbRepository(properties);
+        ComplainsRepository complainsRepository = new ComplainsDbRepository(properties);
+        BugsRepository bugsRepository = new BugsDbRepository(properties);
+        Service service = new Service(credentialsRepository, complainsRepository, bugsRepository);
 
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("login.fxml"));
         Parent rootLogin = fxmlLoader.load();

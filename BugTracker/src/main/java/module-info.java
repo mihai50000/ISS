@@ -18,4 +18,5 @@ open module com.example.bugtracker {
     exports com.example.bugtracker.Service;
     exports com.example.bugtracker.Repository;
     exports com.example.bugtracker.Model;
+    exports com.example.bugtracker.Repository.Credentials;
 }

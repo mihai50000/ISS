@@ -1,6 +1,7 @@
 package com.example.bugtracker.Controllers;
 
 import com.example.bugtracker.Main;
+import com.example.bugtracker.Model.UserType;
 import com.example.bugtracker.Service.Service;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,9 +39,11 @@ public class LoginController {
         String username = usernameField.getText();
         String password = passwordField.getText();
         service.tryLogIn(username, password);
-        if(service.tryLogIn(username, password)) {
+
+        if (service.tryLogIn(username, password)) {
             Stage stage = new Stage();
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("main.fxml"));
+            System.out.println(getResource(service.getLoggedUser().getUserType()));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(getResource(service.getLoggedUser().getUserType())));
             Scene scene = new Scene(fxmlLoader.load());
             MainController mainController = fxmlLoader.getController();
             mainController.setService(service);
@@ -52,5 +55,13 @@ public class LoginController {
             alert.setContentText("Invalid username or password");
             alert.show();
         }
+    }
+
+    private String getResource(UserType userType) {
+        return switch (userType) {
+            case CUSTOMER -> "mainCustomerController.fxml";
+            case TESTER -> "mainTesterController.fxml";
+            case PROGRAMMER -> "mainProgrammerController.fxml";
+        };
     }
 }

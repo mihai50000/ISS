@@ -1,14 +1,13 @@
-package com.example.bugtracker.Repository;
+package com.example.bugtracker.Repository.Credentials;
 
 import com.example.bugtracker.Model.Credentials;
 import com.example.bugtracker.Model.User;
 import com.example.bugtracker.Model.UserType;
+import com.example.bugtracker.Repository.JdbcUtils;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -39,7 +38,7 @@ public class CredentialsDbRepository implements CredentialsRepository {
                 if (resultSet.next()) {
                     String password = resultSet.getString("password");
                     int userId = resultSet.getInt("user_id");
-                    User user = new User(userId, "mocked_name", UserType.PROGRAMMER);
+                    User user = new User(userId, "mocked_name", UserType.TESTER);
 
                     return new Credentials(username, password, user);
                 }
